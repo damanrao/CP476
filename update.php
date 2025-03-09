@@ -1,6 +1,6 @@
 <?php
 // update.php
-require 'db.php';
+require 'db_interface.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $studentID = $_POST['studentID'];
@@ -10,15 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $test3 = $_POST['test3'];
     $finalExam = $_POST['finalExam'];
 
-    // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("UPDATE CourseTable SET Test1 = ?, Test2 = ?, Test3 = ?, FinalExam = ? WHERE StudentID = ? AND CourseCode = ?");
-    $stmt->bind_param("dddis", $test1, $test2, $test3, $finalExam, $studentID, $courseCode);
-    $stmt->execute();
-
-    if ($stmt->affected_rows > 0) {
-        echo "<p>Record updated successfully!</p>";
+    if ($dbInterface->updateCourse($studentID, $courseCode, $test1, $test2, $test3, $finalExam)) {
+        echo json_encode(["message" => "Record updated successfully"]);
     } else {
-        echo "<p>No records updated. Please check the Student ID and Course Code.</p>";
+        echo json_encode(["error" => "No records updated. Please check the Student ID and Course Code."]);
     }
 }
 ?>
+

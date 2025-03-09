@@ -1,20 +1,15 @@
 <?php
 // delete.php
-require 'db.php';
+require 'db_interface.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     $studentID = $_POST['studentID'];
     $courseCode = $_POST['courseCode'];
 
-    // Use prepared statements to prevent SQL injection
-    $stmt = $conn->prepare("DELETE FROM CourseTable WHERE StudentID = ? AND CourseCode = ?");
-    $stmt->bind_param("is", $studentID, $courseCode);
-    $stmt->execute();
-
-    if ($stmt->affected_rows > 0) {
-        echo "<p>Record deleted successfully!</p>";
+    if ($dbInterface->deleteCourse($studentID, $courseCode)) {
+        echo json_encode(["message" => "Record deleted successfully"]);
     } else {
-        echo "<p>No records deleted. Please check the Student ID and Course Code.</p>";
+        echo json_encode(["error" => "No records deleted. Please check the Student ID and Course Code."]);
     }
 }
 ?>
