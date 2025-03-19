@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Student Database System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> Student Database System</h1>
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span id="username">Student</span> 
+                <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#search-section" class="active"><i class="fas fa-search"></i> Search</a></li>
+                <li><a href="#add-section"><i class="fas fa-plus-circle"></i> Add Course</a></li>
+                <li><a href="#update-section"><i class="fas fa-edit"></i> Update Course</a></li>
+                <li><a href="#delete-section"><i class="fas fa-trash-alt"></i> Delete Course</a></li>
+                <li><a href="#calculate-section"><i class="fas fa-calculator"></i> Calculate Grades</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <!-- Search Section -->
+            <section id="search-section" class="active-section">
+                <h2><i class="fas fa-search"></i> Search Courses</h2>
+                <form action="search.php" method="post" id="search-form">
+                    <div class="form-group">
+                        <label for="search-id"><i class="fas fa-id-card"></i> Student ID</label>
+                        <input type="text" id="search-id" name="studentID" placeholder="Enter student ID to search" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="search">
+                            <i class="fas fa-search"></i> Search Records
+                        </button>
+                    </div>
+                </form>
+                <div id="search-results" class="results-container" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+            
+            <!-- Add Course Section -->
+            <section id="add-section">
+                <h2><i class="fas fa-plus-circle"></i> Add New Course</h2>
+                <form action="add_course.php" method="post" id="add-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="add-id"><i class="fas fa-id-card"></i> Student ID</label>
+                            <input type="text" id="add-id" name="studentID" placeholder="Enter student ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-course"><i class="fas fa-book"></i> Course Code</label>
+                            <input type="text" id="add-course" name="courseCode" placeholder="e.g. CP476" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="add-test1"><i class="fas fa-file-alt"></i> Test 1</label>
+                            <input type="number" id="add-test1" name="test1" step="0.1" min="0" max="100" placeholder="Score (0-100)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-test2"><i class="fas fa-file-alt"></i> Test 2</label>
+                            <input type="number" id="add-test2" name="test2" step="0.1" min="0" max="100" placeholder="Score (0-100)" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="add-test3"><i class="fas fa-file-alt"></i> Test 3</label>
+                            <input type="number" id="add-test3" name="test3" step="0.1" min="0" max="100" placeholder="Score (0-100)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-final"><i class="fas fa-file-alt"></i> Final Exam</label>
+                            <input type="number" id="add-final" name="finalExam" step="0.1" min="0" max="100" placeholder="Score (0-100)" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" name="addCourse">
+                            <i class="fas fa-plus"></i> Add Course
+                        </button>
+                    </div>
+                </form>
+                <div id="add-results" class="results-container" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+            
+            <!-- Update Course Section -->
+            <section id="update-section">
+                <h2><i class="fas fa-edit"></i> Update Course</h2>
+                <form action="update.php" method="post" id="update-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="update-id"><i class="fas fa-id-card"></i> Student ID</label>
+                            <input type="text" id="update-id" name="studentID" placeholder="Enter student ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-course"><i class="fas fa-book"></i> Course Code</label>
+                            <input type="text" id="update-course" name="courseCode" placeholder="e.g. CP476" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="update-test1"><i class="fas fa-file-alt"></i> Test 1</label>
+                            <input type="number" id="update-test1" name="test1" step="0.1" min="0" max="100" placeholder="New score (0-100)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-test2"><i class="fas fa-file-alt"></i> Test 2</label>
+                            <input type="number" id="update-test2" name="test2" step="0.1" min="0" max="100" placeholder="New score (0-100)" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="update-test3"><i class="fas fa-file-alt"></i> Test 3</label>
+                            <input type="number" id="update-test3" name="test3" step="0.1" min="0" max="100" placeholder="New score (0-100)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-final"><i class="fas fa-file-alt"></i> Final Exam</label>
+                            <input type="number" id="update-final" name="finalExam" step="0.1" min="0" max="100" placeholder="New score (0-100)" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" name="update">
+                            <i class="fas fa-save"></i> Update Course
+                        </button>
+                    </div>
+                </form>
+                <div id="update-results" class="results-container" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+            
+            <!-- Delete Course Section -->
+            <section id="delete-section">
+                <h2><i class="fas fa-trash-alt"></i> Delete Course</h2>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Warning:</strong> This action cannot be undone. Please confirm the details before deleting.
+                    </div>
+                </div>
+                <form action="delete.php" method="post" id="delete-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="delete-id"><i class="fas fa-id-card"></i> Student ID</label>
+                            <input type="text" id="delete-id" name="studentID" placeholder="Enter student ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="delete-course"><i class="fas fa-book"></i> Course Code</label>
+                            <input type="text" id="delete-course" name="courseCode" placeholder="e.g. CP476" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" name="delete" style="background-color: var(--danger);">
+                            <i class="fas fa-trash-alt"></i> Delete Course
+                        </button>
+                    </div>
+                </form>
+                <div id="delete-results" class="results-container" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+            
+            <!-- Calculate Grades Section -->
+            <section id="calculate-section">
+                <h2><i class="fas fa-calculator"></i> Calculate Final Grades</h2>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Note:</strong> Final grades are calculated as: Tests (3×20%) + Final Exam (40%)
+                    </div>
+                </div>
+                <form action="calculate_grade.php" method="post" id="calculate-form">
+                    <div class="form-group">
+                        <label for="calc-id"><i class="fas fa-id-card"></i> Student ID</label>
+                        <input type="text" id="calc-id" name="studentID" placeholder="Enter student ID to calculate grades" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="calculateGrade">
+                            <i class="fas fa-calculator"></i> Calculate Grades
+                        </button>
+                    </div>
+                </form>
+                <div id="calculate-results" class="results-container" style="display: none;">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p><i class="fas fa-code"></i> CP476A Group Project - Student Database System &copy; 2025</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
